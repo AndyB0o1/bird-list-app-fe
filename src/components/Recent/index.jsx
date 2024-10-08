@@ -1,23 +1,29 @@
+import { useEffect, useState } from "react"
+import BirdDetail from "../BirdDetail";
+
 export default function Recent() {
+
+    const [recents, setRecents] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8000/api/recent').then(response => response.json())
+            .then(responseBody => {
+                setRecents(responseBody.data)
+            })
+    }, [])
+
+    console.log(recents)
+
     return (
         <div>
             <h2 className="p-2">Recent sightings</h2>
-            <div className="flex gap-2 p-2">
-                <div className="basis-1/6 border rounded-lg">
-                    <p className="p-8">Recent bird</p>
-                </div>
-                <div className="basis-1/6 border rounded-lg">
-                    <p className="p-8">Recent bird</p>
-                </div>
-                <div className="basis-1/6 border rounded-lg">
-                    <p className="p-8">Recent bird</p>
-                </div>
-                <div className="basis-1/6 border rounded-lg">
-                    <p className="p-8">Recent bird</p>
-                </div>
-                <div className="basis-1/6 border rounded-lg">
-                    <p className="p-8">Recent bird</p>
-                </div>
+            <div className="flex gap-2 p-2 content-center">
+                {recents.map(recent => <BirdDetail
+                    key={recent.id}
+                    name={recent.name}
+                    image={recent.image}
+                    location={recent.location}
+                />)}
             </div>
         </div>
     )
