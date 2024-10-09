@@ -1,4 +1,4 @@
-export default function BirdDetail({ key, name, image, location }) {
+export default function BirdDetail({ name, image, location }) {
     return (
         <div className="basis-1/5 border rounded-lg">
                     <h3 className="p-2 text-xs font-bold">{name}</h3>

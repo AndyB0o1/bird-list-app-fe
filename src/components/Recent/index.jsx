@@ -12,8 +12,6 @@ export default function Recent() {
             })
     }, [])
 
-    console.log(recents)
-
     return (
         <div>
             <h2 className="p-2">Recent sightings</h2>
