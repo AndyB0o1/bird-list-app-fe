@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import BirdDetail from "../BirdDetail";
+import BirdDetail from "../../components/BirdDetail";
 
-export default function Recent() {
+export default function RecentPage() {
 
     const [recents, setRecents] = useState([]);
 
