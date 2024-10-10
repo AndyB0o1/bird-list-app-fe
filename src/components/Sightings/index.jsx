@@ -1,14 +1,13 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
-import SightingMarkers from "../SightingMarkers";
 
 export default function Sightings() {
 
     const [sightings, setSightings] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/birds').then(response => response.json())
+        fetch('http://localhost:8000/api/map').then(response => response.json())
             .then(responseBody => {
                 setSightings(responseBody.data)
             })
