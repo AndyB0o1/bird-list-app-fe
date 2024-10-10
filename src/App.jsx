@@ -6,6 +6,7 @@ import Sightings from "./components/Sightings"
 import RecentPage from "./pages/RecentPage"
 import AboutPage from "./pages/AboutPage"
 import AddBirdPage from "./pages/AddBirdPage"
+import RegisterPage from "./pages/RegisterPage"
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<RecentPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/add" element={<AddBirdPage />} />
         </Routes>
         <Sightings />
