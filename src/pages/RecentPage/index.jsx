@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import BirdDetail from "../../components/BirdDetail";
 
-export default function RecentPage() {
+export default function RecentPage({ apiBaseUrl }) {
 
     const [recents, setRecents] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/recent').then(response => response.json())
+        fetch(apiBaseUrl + '/recent').then(response => response.json())
             .then(responseBody => {
                 setRecents(responseBody.data)
             })

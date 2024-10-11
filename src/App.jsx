@@ -10,17 +10,19 @@ import RegisterPage from "./pages/RegisterPage"
 
 function App() {
 
+  const apiBaseUrl = 'http://localhost:8000/api'
+
   return (
     <BrowserRouter>
       <div className="w-1/2 mx-auto">
         <Nav />
         <Routes>
-          <Route path="/" element={<RecentPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/add" element={<AddBirdPage />} />
+          <Route path="/" element={<RecentPage  apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/about" element={<AboutPage  apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/register" element={<RegisterPage  apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/add" element={<AddBirdPage  apiBaseUrl={apiBaseUrl} />} />
         </Routes>
-        <Sightings />
+        <Sightings apiBaseUrl={apiBaseUrl} />
         <Footer />
       </div>
     </BrowserRouter>

@@ -7,7 +7,7 @@ export default function Nav() {
             <div className="mt-16 flex gap-2">
                 <Link to="/"><button className="p-2 border border-white rounded text-white">Home</button></Link>
                 <Link to="/about"><button className="p-2 border border-white rounded text-white">About</button></Link>
-                <Link to="/register"><button className="p-2 border border-white rounded text-white">Register</button></Link>
+                <Link to="/register"><button className="hidden p-2 border border-white rounded text-white">Register</button></Link>
                 <Link to="/add"><button className="p-2 border border-white rounded text-white">Add bird</button></Link>
             </div>
         </div>
