@@ -40,8 +40,8 @@ export default function AddBirdPage({ apiBaseUrl }) {
             body: JSON.stringify(requestBody)
         }).then(response => {
             if (response.status === 201) {
-                navigate("/")
-            } 
+                navigate("/bird_added")
+            }
             else {
                 response.json().then(responseBody => {
                     const nameErrorsString = responseBody.errors.name?.join("\n") ?? ''
@@ -59,7 +59,7 @@ export default function AddBirdPage({ apiBaseUrl }) {
                         + lonErrorsString)
                 })
             }
-         })
+        })
     }
 
     return (
@@ -70,30 +70,30 @@ export default function AddBirdPage({ apiBaseUrl }) {
                 <div className="flex flex-col gap-1">
                     <label htmlFor="username">Username (required)</label>
                     <select className="w-fit px-2 py-1" name="birderId" value={birderId} onChange={(event) => setBirderId(event.target.value)}>
-                    <option value="0" disabled>Select</option>
+                        <option value="0" disabled>Select</option>
                         {birders?.map(birder => <option value={birder.id} key={birder.id}>{birder.username}</option>)}
                     </select>
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="name">Name of bird seen (required)</label>
-                    <input className="p-1 border border-sky-700 rounded" type="text" id="name" name="name" placeholder="name" value={name} onChange={ (event) => setName(event.target.value) } />
+                    <input className="p-1 border border-sky-700 rounded" type="text" id="name" name="name" placeholder="name" value={name} onChange={(event) => setName(event.target.value)} />
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="imageURL">Link to an image (if you have one)</label>
-                    <input className="p-1 border border-sky-700 rounded" type="text" id="imageURL" name="imageURL" placeholder="imageURL" value={image} onChange={ (event) => setImage(event.target.value) }/>
+                    <input className="p-1 border border-sky-700 rounded" type="text" id="imageURL" name="imageURL" placeholder="imageURL" value={image} onChange={(event) => setImage(event.target.value)} />
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="location">Location of sighting (required)</label>
-                    <input className="p-1 border border-sky-700 rounded" type="text" id="location" name="location" placeholder="location" value={location} onChange={ (event) => setLocation(event.target.value) }/>
+                    <input className="p-1 border border-sky-700 rounded" type="text" id="location" name="location" placeholder="location" value={location} onChange={(event) => setLocation(event.target.value)} />
                 </div>
                 <div className="flex flex-row gap-1">
                     <div>
-                    <label htmlFor="latitude">Latitude co-ords of sighting (if known)</label>
-                    <input className="p-1 border border-sky-700 rounded" type="text" id="latitude" name="latitude" placeholder="latitude" value={lat} onChange={ (event) => setLat(event.target.value) }/>
+                        <label htmlFor="latitude">Latitude co-ords of sighting (if known)</label>
+                        <input className="p-1 border border-sky-700 rounded" type="text" id="latitude" name="latitude" placeholder="latitude" value={lat} onChange={(event) => setLat(event.target.value)} />
                     </div>
                     <div>
-                    <label htmlFor="longitude">Longitude co-ords of sighting (if known)</label>
-                    <input className="p-1 border border-sky-700 rounded" type="text" id="longitude" name="longitude" placeholder="longitude" value={lon} onChange={ (event) => setLon(event.target.value) }/>
+                        <label htmlFor="longitude">Longitude co-ords of sighting (if known)</label>
+                        <input className="p-1 border border-sky-700 rounded" type="text" id="longitude" name="longitude" placeholder="longitude" value={lon} onChange={(event) => setLon(event.target.value)} />
                     </div>
                 </div>
                 <input className="bg-sky-700 text-white p-1" type="submit" value="Add bird" />
