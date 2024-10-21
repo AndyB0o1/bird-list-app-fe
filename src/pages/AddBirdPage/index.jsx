@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { MapContainer, TileLayer, useMapEvents, Marker } from "react-leaflet";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function AddBirdPage({ apiBaseUrl }) {
@@ -9,8 +10,9 @@ export default function AddBirdPage({ apiBaseUrl }) {
     const [name, setName] = useState('')
     const [image, setImage] = useState('')
     const [location, setLocation] = useState('')
-    const [lat, setLat] = useState(0)
-    const [lon, setLon] = useState(0)
+    const [coords, setCoords] = useState({})
+
+    console.log(apiBaseUrl)
 
     useEffect(() => {
         fetch(apiBaseUrl + '/birders').then(response => response.json())
@@ -25,9 +27,13 @@ export default function AddBirdPage({ apiBaseUrl }) {
             name: name,
             image: image,
             location: location,
-            lat: lat,
-            lon: lon,
+            lat: coords.lat,
+            lon: coords.lng,
             birder_id: birderId
+        }
+        
+        if (image === '') {
+            requestBody.image = '/image.png'
         }
 
         fetch(apiBaseUrl + '/birds', {
@@ -62,6 +68,23 @@ export default function AddBirdPage({ apiBaseUrl }) {
         })
     }
 
+    const handleMapClick = (e) => {
+        const { lat, lng } = e.latlng;
+        alert(`Clicked at: ${lat}, ${lng}. Close this alert to set the co-ordinates in the form below`);
+        setCoords({
+            lat: lat,
+            lng: lng
+        }
+        );
+    };
+
+    const MapEventsHandler = ({ handleMapClick }) => {
+        useMapEvents({
+            click: (e) => handleMapClick(e),
+        });
+        return null;
+    };
+
     return (
         <>
             <h1 className="mt-4 p-2 bg-sky-700 text-white">Add a bird by completing the form below</h1>
@@ -83,18 +106,25 @@ export default function AddBirdPage({ apiBaseUrl }) {
                     <input className="p-1 border border-sky-700 rounded" type="text" id="imageURL" name="imageURL" placeholder="imageURL" value={image} onChange={(event) => setImage(event.target.value)} />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="location">Location of sighting (required)</label>
+                    <label htmlFor="location">Name of location of sighting (required)</label>
                     <input className="p-1 border border-sky-700 rounded" type="text" id="location" name="location" placeholder="location" value={location} onChange={(event) => setLocation(event.target.value)} />
                 </div>
-                <div className="flex flex-row gap-1">
-                    <div>
-                        <label htmlFor="latitude">Latitude co-ords of sighting (if known)</label>
-                        <input className="p-1 border border-sky-700 rounded" type="text" id="latitude" name="latitude" placeholder="latitude" value={lat} onChange={(event) => setLat(event.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="longitude">Longitude co-ords of sighting (if known)</label>
-                        <input className="p-1 border border-sky-700 rounded" type="text" id="longitude" name="longitude" placeholder="longitude" value={lon} onChange={(event) => setLon(event.target.value)} />
-                    </div>
+                <div>
+                    <h2>Click on the map below to add the location co-ordinates for your sighting (this will add a marker to the main map in your list)</h2>
+                    <MapContainer center={[51.34751, -2.290]} zoom={4} style={{ height: '500px' }}>
+                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                        <MapEventsHandler handleMapClick={handleMapClick} />
+                    </MapContainer>
+                    {/* <div className="flex flex-row gap-1">
+                        <div>
+                            <label htmlFor="latitude">Latitude co-ords of sighting (if known)</label>
+                            <input className="p-1 border border-sky-700 rounded" type="text" id="latitude" name="latitude" placeholder="latitude" value={lat} onChange={(event) => setLat(event.target.value)} />
+                        </div>
+                        <div>
+                            <label htmlFor="longitude">Longitude co-ords of sighting (if known)</label>
+                            <input className="p-1 border border-sky-700 rounded" type="text" id="longitude" name="longitude" placeholder="longitude" value={lon} onChange={(event) => setLon(event.target.value)} />
+                        </div>
+                    </div> */}
                 </div>
                 <input className="bg-sky-700 text-white p-1" type="submit" value="Add bird" />
             </form>

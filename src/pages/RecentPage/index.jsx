@@ -14,8 +14,8 @@ export default function RecentPage({ apiBaseUrl }) {
 
     return (
         <div>
-            <h2 className="p-2">Recent sightings</h2>
-            <div className="flex gap-2 p-2">
+            <h2 className="p-2 font-bold text-xl text-sky-700">Recent sightings</h2>
+            <div className="flex gap-2 p-2 text-sky-700">
                 {recents.map(recent => <BirdDetail
                     key={recent.id}
                     name={recent.name}
