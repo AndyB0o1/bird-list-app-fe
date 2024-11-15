@@ -9,7 +9,6 @@ import RegisterPage from "./pages/RegisterPage"
 import AddBirdSuccessPage from "./pages/AddBirdSuccessPage"
 import AddBirderSuccessPage from "./pages/AddBirderSuccessPage"
 import MyListPage from "./pages/MyListPage"
-import ClickableMap from "./components/ClickableMap"
 
 function App() {
 
@@ -28,7 +27,6 @@ function App() {
           <Route path="/bird_added" element={<AddBirdSuccessPage />} />
           <Route path="/user_added" element={<AddBirderSuccessPage />} />
         </Routes>
-        <Sightings apiBaseUrl={apiBaseUrl} />
         <Footer />
       </div>
     </BrowserRouter>

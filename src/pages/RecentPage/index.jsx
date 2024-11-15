@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import BirdDetail from "../../components/BirdDetail";
+import Sightings from "../../components/Sightings";
 
 export default function RecentPage({ apiBaseUrl }) {
 
@@ -23,6 +24,7 @@ export default function RecentPage({ apiBaseUrl }) {
                     location={recent.location}
                 />)}
             </div>
+            <Sightings apiBaseUrl={apiBaseUrl} />
         </div>
     )
 }
