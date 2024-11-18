@@ -9,6 +9,8 @@ import RegisterPage from "./pages/RegisterPage"
 import AddBirdSuccessPage from "./pages/AddBirdSuccessPage"
 import AddBirderSuccessPage from "./pages/AddBirderSuccessPage"
 import MyListPage from "./pages/MyListPage"
+import EditBirdSuccessPage from "./pages/EditBirdSuccessPage"
+import EditBirdPage from "./pages/EditBirdPage"
 
 function App() {
 
@@ -24,8 +26,10 @@ function App() {
           <Route path="/register" element={<RegisterPage apiBaseUrl={apiBaseUrl} />} />
           <Route path="/mylist" element={<MyListPage apiBaseUrl={apiBaseUrl} />} />
           <Route path="/add" element={<AddBirdPage apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/birds/:id" element={<EditBirdPage apiBaseUrl={apiBaseUrl} />} />
           <Route path="/bird_added" element={<AddBirdSuccessPage />} />
           <Route path="/user_added" element={<AddBirderSuccessPage />} />
+          <Route path="/bird_edited" element={<EditBirdSuccessPage />} />
         </Routes>
         <Footer />
       </div>

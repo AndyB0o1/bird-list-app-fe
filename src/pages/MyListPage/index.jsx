@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
+import BirdInfo from "../../components/BirdInfo"
 
 export default function MyListPage({ apiBaseUrl }) {
 
@@ -17,14 +18,14 @@ export default function MyListPage({ apiBaseUrl }) {
     return (
         <div>
             <h1 className="p-2 font-bold text-sky-700 text-xl">{birder}'s list of birds seen</h1>
-            <div className="relative flex flex-wrap gap-1 justify-around">
-                {birds.map(bird =>
-                    <div className="basis-1/5 border border-sky-700 rounded-lg">
-                        <p className="id hidden">{bird.id}</p>
-                        <h3 className="p-2 h-14 text-sky-700 text-center text-xs font-bold">{bird.name}</h3>
-                        <img src={bird.image} alt={bird.name} className="h-16 w-16 object-cover rounded-full mx-auto"></img>
-                        <p className="p-2 text-sky-700 text-center text-xs">{bird.location}</p>
-                    </div>)}
+            <div className="flex flex-wrap gap-1 justify-around">
+                {birds.map(bird => <BirdInfo
+                    id={bird.id}
+                    key={bird.id}
+                    name={bird.name}
+                    image={bird.image}
+                    location={bird.location}
+                />)}
             </div>
             <h2 className="p-2 font-bold text-xl text-sky-700">Where {birder}'s birds were seen</h2>
             <MapContainer className="h-48" center={[51.34751, -2.290]} zoom={5} scrollWheelZoom={false}>
