@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, useMapEvents, Marker } from "react-leaflet";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditBirdPage({ apiBaseUrl }) {
 
@@ -29,10 +29,6 @@ export default function EditBirdPage({ apiBaseUrl }) {
             lat: coords.lat,
             lon: coords.lng,
             birder_id: bird.birder_id
-        }
-
-        if (image === '') {
-            requestBody.image = '/image.png'
         }
 
         fetch(apiBaseUrl + '/birds/' + id, {
@@ -88,7 +84,7 @@ export default function EditBirdPage({ apiBaseUrl }) {
                         <MapEventsHandler handleMapClick={handleMapClick} />
                     </MapContainer>
                 </div>
-                <input className="bg-sky-700 text-white p-1" type="submit" value="Edit bird" />
+                <input className="bg-sky-700 text-white p-1" type="submit" value="Save changes" />
             </form>
         </>
     )

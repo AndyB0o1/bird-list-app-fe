@@ -15,7 +15,7 @@ import EditBirdPage from "./pages/EditBirdPage"
 function App() {
 
   const apiBaseUrl = 'http://localhost:8000/api'
-
+  
   return (
     <BrowserRouter>
       <div className="w-1/2 mx-auto">

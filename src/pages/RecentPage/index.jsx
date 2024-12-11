@@ -13,6 +13,12 @@ export default function RecentPage({ apiBaseUrl }) {
             })
     }, [])
 
+    useEffect(() => {
+        if (recents.length === 0) {
+            setRecents(recents)
+        }
+    })
+
     return (
         <div>
             <h2 className="p-2 font-bold text-xl text-sky-700">Recent sightings</h2>

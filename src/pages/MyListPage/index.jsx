@@ -25,6 +25,8 @@ export default function MyListPage({ apiBaseUrl }) {
                     name={bird.name}
                     image={bird.image}
                     location={bird.location}
+                    lat={bird.lat}
+                    lon={bird.lon}
                 />)}
             </div>
             <h2 className="p-2 font-bold text-xl text-sky-700">Where {birder}'s birds were seen</h2>
