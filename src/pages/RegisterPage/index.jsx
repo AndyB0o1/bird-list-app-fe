@@ -5,32 +5,34 @@ export default function RegisterPage({ apiBaseUrl }) {
 
     const navigate = useNavigate()
     const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        const newBirder = {
+        const newUser = {
             username: username,
+            email: email,
             password: password
         }
 
-        fetch(apiBaseUrl + '/birders', {
+        fetch(apiBaseUrl + '/users', {
             mode: 'cors',
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify(newBirder)
+            body: JSON.stringify(newUser)
         }).then(response => {
             if (response.status === 201) {
                 navigate("/user_added")
             }
             else {
-                response.json().then(newBirder => {
+                response.json().then(newUser => {
                     const usernameErrorsString = responseBody.errors.username?.join("\n") ?? ''
                     const passwordErrorsString = responseBody.errors.password?.join("\n") ?? ''
-                    alert("Adding the birder failed: \n"
+                    alert("Adding the user failed: \n"
                         + usernameErrorsString + "\n"
                         + passwordErrorsString + "\n"
                     )

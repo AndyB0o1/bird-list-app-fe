@@ -5,19 +5,19 @@ import BirdInfo from "../../components/BirdInfo"
 export default function MyListPage({ apiBaseUrl }) {
 
     const [birds, setBirds] = useState([])
-    const [birder, setBirder] = useState('')
+    const [user, setUser] = useState('')
 
     useEffect(() => {
-        fetch(apiBaseUrl + '/birders/1').then(response => response.json())
+        fetch(apiBaseUrl + '/users/1').then(response => response.json())
             .then(responseBody => {
-                setBirder(responseBody.data.username)
+                setUser(responseBody.data.name)
                 setBirds(responseBody.data.birds)
             })
     }, [])
 
     return (
         <div>
-            <h1 className="p-2 font-bold text-sky-700 text-xl">{birder}'s list of birds seen</h1>
+            <h1 className="p-2 font-bold text-sky-700 text-xl">{user}'s list of birds seen</h1>
             <div className="flex flex-wrap gap-1 justify-around">
                 {birds.map(bird => <BirdInfo
                     id={bird.id}
@@ -29,7 +29,7 @@ export default function MyListPage({ apiBaseUrl }) {
                     lon={bird.lon}
                 />)}
             </div>
-            <h2 className="p-2 font-bold text-xl text-sky-700">Where {birder}'s birds were seen</h2>
+            <h2 className="p-2 font-bold text-xl text-sky-700">Where {user}'s birds were seen</h2>
             <MapContainer className="h-48" center={[51.34751, -2.290]} zoom={5} scrollWheelZoom={false}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

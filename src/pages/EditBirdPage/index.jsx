@@ -28,7 +28,7 @@ export default function EditBirdPage({ apiBaseUrl }) {
             location: location,
             lat: coords.lat,
             lon: coords.lng,
-            birder_id: bird.birder_id
+            user_id: bird.user_id
         }
 
         fetch(apiBaseUrl + '/birds/' + id, {

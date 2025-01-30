@@ -5,17 +5,17 @@ import { Link, useNavigate } from "react-router-dom";
 export default function AddBirdPage({ apiBaseUrl }) {
 
     const navigate = useNavigate()
-    const [birders, setBirders] = useState([])
-    const [birderId, setBirderId] = useState(0)
+    const [users, setUsers] = useState([])
+    const [userId, setUserId] = useState(0)
     const [name, setName] = useState('')
     const [image, setImage] = useState('')
     const [location, setLocation] = useState('')
     const [coords, setCoords] = useState({})
 
     useEffect(() => {
-        fetch(apiBaseUrl + '/birders').then(response => response.json())
+        fetch(apiBaseUrl + '/users').then(response => response.json())
             .then(responseBody => {
-                setBirders(responseBody.data)
+                setUsers(responseBody.data)
             })
     }, [])
 
@@ -27,7 +27,7 @@ export default function AddBirdPage({ apiBaseUrl }) {
             location: location,
             lat: coords.lat,
             lon: coords.lng,
-            birder_id: birderId
+            user_id: userId
         }
 
         if (image === '') {
@@ -50,14 +50,14 @@ export default function AddBirdPage({ apiBaseUrl }) {
                 response.json().then(responseBody => {
                     const nameErrorsString = responseBody.errors.name?.join("\n") ?? ''
                     const imageErrorsString = responseBody.errors.image?.join("\n") ?? ''
-                    const birderErrorsString = responseBody.errors.birder_id?.join("\n") ?? ''
+                    const birderErrorsString = responseBody.errors.user_id?.join("\n") ?? ''
                     const locationErrorsString = responseBody.errors.location?.join("\n") ?? ''
                     const latErrorsString = responseBody.errors.lat?.join("\n") ?? ''
                     const lonErrorsString = responseBody.errors.lon?.join("\n") ?? ''
                     alert("Adding the bird failed: \n"
                         + nameErrorsString + "\n"
                         + imageErrorsString + "\n"
-                        + birderErrorsString + "\n"
+                        + userErrorsString + "\n"
                         + locationErrorsString + "\n"
                         + latErrorsString + "\n",
                         + lonErrorsString)
@@ -90,9 +90,9 @@ export default function AddBirdPage({ apiBaseUrl }) {
             <form className="my-3 flex flex-col gap-4 px-3" onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="username">Username (required)</label>
-                    <select className="w-fit px-2 py-1" name="birderId" value={birderId} onChange={(event) => setBirderId(event.target.value)}>
+                    <select className="w-fit px-2 py-1" name="userId" value={userId} onChange={(event) => setUserId(event.target.value)}>
                         <option value="0" disabled>Select</option>
-                        {birders?.map(birder => <option value={birder.id} key={birder.id}>{birder.username}</option>)}
+                        {users?.map(user => <option value={user.id} key={user.id}>{user.name}</option>)}
                     </select>
                 </div>
                 <div className="flex flex-col gap-1">
