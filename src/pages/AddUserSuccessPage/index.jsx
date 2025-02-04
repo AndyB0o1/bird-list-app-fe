@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function AddBirderSuccessPage() {
+export default function AddUserSuccessPage() {
     return (
         <div className="p-2 my-2 flex flex-col">
             <div>

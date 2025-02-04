@@ -16,7 +16,7 @@ export default function Sightings({ apiBaseUrl }) {
     return (
         <div>
             <h2 className="p-2 font-bold text-xl text-sky-700">Where birds have been seen</h2>
-            <MapContainer className="h-48" center={[51.34751, -2.290]} zoom={5} scrollWheelZoom={false}>
+            <MapContainer className="h-32" center={[51.34751, -2.290]} zoom={6} scrollWheelZoom={true}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
