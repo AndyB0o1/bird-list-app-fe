@@ -1,33 +1,43 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, useMapEvents, Marker } from "react-leaflet";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function AddBirdPage({ apiBaseUrl }) {
 
     const navigate = useNavigate()
-    const [users, setUsers] = useState([])
-    const [userId, setUserId] = useState(0)
-    const [name, setName] = useState('')
+    const [user, setUser] = useState([])
+    const [birdName, setBirdName] = useState('')
     const [image, setImage] = useState('')
     const [location, setLocation] = useState('')
     const [coords, setCoords] = useState({})
 
     useEffect(() => {
-        fetch(apiBaseUrl + '/users').then(response => response.json())
-            .then(responseBody => {
-                setUsers(responseBody.data)
-            })
-    }, [])
+        const fetchUserDetails = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                try {
+                    const response = await axios.get(apiBaseUrl + '/user');
+                    setUser(response.data);
+                } catch (error) {
+                    console.error('Error fetching user details', error);
+                }
+            }
+        };
+        fetchUserDetails();
+
+    }, []);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const requestBody = {
-            name: name,
+            name: birdName,
             image: image,
             location: location,
             lat: coords.lat,
             lon: coords.lng,
-            user_id: userId
+            user_id: user.id
         }
 
         if (image === '') {
@@ -48,14 +58,14 @@ export default function AddBirdPage({ apiBaseUrl }) {
             }
             else {
                 response.json().then(responseBody => {
-                    const nameErrorsString = responseBody.errors.name?.join("\n") ?? ''
+                    const birdNameErrorsString = responseBody.errors.birdName?.join("\n") ?? ''
                     const imageErrorsString = responseBody.errors.image?.join("\n") ?? ''
-                    const birderErrorsString = responseBody.errors.user_id?.join("\n") ?? ''
+                    const userErrorsString = responseBody.errors.user_id?.join("\n") ?? ''
                     const locationErrorsString = responseBody.errors.location?.join("\n") ?? ''
                     const latErrorsString = responseBody.errors.lat?.join("\n") ?? ''
                     const lonErrorsString = responseBody.errors.lon?.join("\n") ?? ''
                     alert("Adding the bird failed: \n"
-                        + nameErrorsString + "\n"
+                        + birdNameErrorsString + "\n"
                         + imageErrorsString + "\n"
                         + userErrorsString + "\n"
                         + locationErrorsString + "\n"
@@ -86,18 +96,18 @@ export default function AddBirdPage({ apiBaseUrl }) {
     return (
         <>
             <h1 className="mt-4 p-2 bg-sky-700 text-white">Add a bird by completing the form below</h1>
-            <p className="p-1 text-rose-600"><span>*If you haven't registered your username yet, please </span><Link to="/register" className="text-sky-700">register here</Link><span> before trying to add a bird*</span></p>
+            {/* <p className="p-1 text-rose-600"><span>*If you haven't registered your username yet, please </span><Link to="/register" className="text-sky-700">register here</Link><span> before trying to add a bird*</span></p> */}
             <form className="my-3 flex flex-col gap-4 px-3" onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="username">Username (required)</label>
-                    <select className="w-fit px-2 py-1" name="userId" value={userId} onChange={(event) => setUserId(event.target.value)}>
+                    <h2>Username: {user.name}</h2>
+                    {/* <select className="w-fit px-2 py-1" name="userId" value={userId} onChange={(event) => setUserId(event.target.value)}>
                         <option value="0" disabled>Select</option>
                         {users?.map(user => <option value={user.id} key={user.id}>{user.name}</option>)}
-                    </select>
+                    </select> */}
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="name">Name of bird seen (required)</label>
-                    <input className="p-1 border border-sky-700 rounded" type="text" id="name" name="name" placeholder="name" value={name} onChange={(event) => setName(event.target.value)} />
+                    <input className="p-1 border border-sky-700 rounded" type="text" id="birdName" name="birdName" placeholder="Species of bird seen" value={birdName} onChange={(event) => setBirdName(event.target.value)} />
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="imageURL">Link to an image (if you have one)</label>

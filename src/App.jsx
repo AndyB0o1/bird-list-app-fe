@@ -1,7 +1,6 @@
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Footer from "./components/Footer"
 import Nav from "./components/Nav"
-import AboutPage from "./pages/AboutPage"
 import AddBirdPage from "./pages/AddBirdPage"
 import RegisterPage from "./pages/RegisterPage"
 import AddBirdSuccessPage from "./pages/AddBirdSuccessPage"
@@ -10,11 +9,12 @@ import EditBirdSuccessPage from "./pages/EditBirdSuccessPage"
 import EditBirdPage from "./pages/EditBirdPage"
 import HomePage from "./pages/HomePage"
 import AddUserSuccessPage from "./pages/AddUserSuccessPage"
+import LoginPage from "./pages/LoginPage"
 
 function App() {
 
-  const apiBaseUrl = 'http://localhost:8000/api'
-  
+  const apiBaseUrl = 'http://localhost:8000/api';
+
   return (
     <BrowserRouter>
       <div className="w-1/2 mx-auto">
@@ -23,6 +23,7 @@ function App() {
           <Route path="/" element={<HomePage apiBaseUrl={apiBaseUrl} />} />
           {/* <Route path="/about" element={<AboutPage apiBaseUrl={apiBaseUrl} />} /> */}
           <Route path="/register" element={<RegisterPage apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/login" element={<LoginPage/>} />
           <Route path="/mylist" element={<MyListPage apiBaseUrl={apiBaseUrl} />} />
           <Route path="/add" element={<AddBirdPage apiBaseUrl={apiBaseUrl} />} />
           <Route path="/birds/:id" element={<EditBirdPage apiBaseUrl={apiBaseUrl} />} />
@@ -33,7 +34,7 @@ function App() {
         <Footer />
       </div>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App

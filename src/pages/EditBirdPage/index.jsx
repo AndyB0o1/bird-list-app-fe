@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from "react-leaflet";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditBirdPage({ apiBaseUrl }) {
@@ -10,15 +10,18 @@ export default function EditBirdPage({ apiBaseUrl }) {
     const [image, setImage] = useState('')
     const [location, setLocation] = useState('')
     const [coords, setCoords] = useState({})
-
+    const [birdLat, setBirdLat] = useState(0)
+    const [birdLon, setBirdLon] = useState(0)
     const { id } = useParams()
 
     useEffect(() => {
         fetch(apiBaseUrl + '/birds/' + id).then(response => response.json())
             .then(responseBody => {
-                setBird(responseBody.data)
+                setBird(responseBody.data);
+                setBirdLat(responseBody.data.lat)
+                setBirdLon(responseBody.data.lon)
             })
-    }, [])
+    }, []);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -41,7 +44,7 @@ export default function EditBirdPage({ apiBaseUrl }) {
             body: JSON.stringify(requestBody)
         }).then(response => {
             navigate("/bird_edited")
-        })
+        });
     }
 
     const handleMapClick = (e) => {
@@ -63,7 +66,10 @@ export default function EditBirdPage({ apiBaseUrl }) {
 
     return (
         <>
-            <h1 className="mt-4 p-2 bg-sky-700 text-white">Edit your bird using the form below</h1>
+            {/* <div className="flex justify-between"> */}
+            <h1 className="mt-4 p-2 bg-sky-700 rounded text-white">Edit your bird using the form below</h1>
+            {/* <button className="p-2 bg-red-700 rounded text-white">Delete sighting<br></br>Cannot be undone</button>
+            </div> */}
             <form className="my-3 flex flex-col gap-4 px-3" onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="name">Name of bird seen</label>
@@ -79,13 +85,21 @@ export default function EditBirdPage({ apiBaseUrl }) {
                 </div>
                 <div>
                     <h2>Click on the map below to change the location co-ordinates for your sighting</h2>
-                    <MapContainer center={[51.34751, -2.290]} zoom={4} style={{ height: '500px' }}>
-                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                        <MapEventsHandler handleMapClick={handleMapClick} />
-                    </MapContainer>
+                    {birdLat &&
+                        <MapContainer center={[birdLat, birdLon]} zoom={8} style={{ height: '500px' }}>
+                            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                            <Marker position={[birdLat, birdLon]} >
+                                <Popup>
+                                    {bird.name} <br></br>
+                                    seen at {bird.location}
+                                </Popup>
+                            </Marker>
+                            <MapEventsHandler handleMapClick={handleMapClick} />
+                        </MapContainer>
+                    }
                 </div>
                 <input className="bg-sky-700 text-white p-1" type="submit" value="Save changes" />
             </form>
         </>
-    )
+    );
 }

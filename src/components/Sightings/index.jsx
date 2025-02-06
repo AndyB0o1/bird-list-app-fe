@@ -24,7 +24,9 @@ export default function Sightings({ apiBaseUrl }) {
                 {sightings.map(sighting =>
                     <Marker position={[sighting.lat, sighting.lon]} >
                         <Popup>
-                            {sighting.name} <br /> Seen by {sighting.user.name}
+                            {sighting.name} <br />
+                            Seen at {sighting.location} <br />
+                            by {sighting.user.name}
                         </Popup>
                     </Marker>
                 )}
