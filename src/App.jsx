@@ -13,15 +13,14 @@ import LoginPage from "./pages/LoginPage"
 
 function App() {
 
-  const apiBaseUrl = 'http://localhost:8000/api';
+  const apiBaseUrl = 'http://localhost:8000/api'
 
   return (
     <BrowserRouter>
-      <div className="w-1/2 mx-auto">
+      <div className="md:w-1/2 mx-8 md:mx-auto">
         <Nav />
         <Routes>
           <Route path="/" element={<HomePage apiBaseUrl={apiBaseUrl} />} />
-          {/* <Route path="/about" element={<AboutPage apiBaseUrl={apiBaseUrl} />} /> */}
           <Route path="/register" element={<RegisterPage apiBaseUrl={apiBaseUrl} />} />
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/mylist" element={<MyListPage apiBaseUrl={apiBaseUrl} />} />
@@ -34,7 +33,7 @@ function App() {
         <Footer />
       </div>
     </BrowserRouter>
-  );
+  )
 }
 
 export default App

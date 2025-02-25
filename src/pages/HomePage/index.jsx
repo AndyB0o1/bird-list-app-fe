@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react"
-import BirdDetail from "../../components/BirdDetail";
-import Sightings from "../../components/Sightings";
-import { Link } from "react-router-dom";
+import BirdDetail from "../../components/BirdDetail"
+import Sightings from "../../components/Sightings"
 
 export default function HomePage({ apiBaseUrl }) {
 
-    const [recents, setRecents] = useState([]);
+    const [recents, setRecents] = useState([])
 
     useEffect(() => {
         fetch(apiBaseUrl + '/recent').then(response => response.json())
@@ -23,17 +22,17 @@ export default function HomePage({ apiBaseUrl }) {
     return (
         <div>
             <div>
-                <h1 className="mb-4 text-sky-700 font-bold text-2xl">What is My Bird List?</h1>
-                <p className="text-sky-700 text-xl">My Bird List allows you to keep your life list of bird sightings in one handy place.
+                <h1 className="mb-1 md:mb-4 text-sky-700 font-bold md:text-2xl">What is My Bird List?</h1>
+                <p className="mb-1 text-sky-700 text-sm md:text-xl">My Bird List allows you to keep your life list of bird sightings in one handy place.
                     Once registered on the site you can add your sightings along with the location and a link to an image if you have one.
                     The birds you've seen are shown as a list and on a map, allowing you to keep track of what you've seen and where.
                     You can also update your sightings and edit or delete them as appropriate.</p>
-                    <br></br>
-                    <p className="mb-2 text-sky-700 text-xl">Click on Login or Register above to get started.</p>
+                <br className="hidden md:block"></br>
+                <p className="md:mb-2 text-sky-700 text-sm md:text-xl">Click on Login or Register above to get started.</p>
 
             </div>
-            <h2 className="p-2 font-bold text-xl text-sky-700">Recent member sightings</h2>
-            <div className="flex gap-2 p-2 text-sky-700">
+            <h2 className="hidden sm:block p-2 font-bold md:text-xl text-sky-700">Recent user sightings</h2>
+            <div className="hidden md:flex gap-2 p-2 text-sky-700">
                 {recents.map(recent => <BirdDetail
                     key={recent.id}
                     name={recent.name}

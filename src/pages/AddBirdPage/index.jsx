@@ -1,7 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, useMapEvents, Marker } from "react-leaflet";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { MapContainer, TileLayer, useMapEvents, Marker } from "react-leaflet"
+import { useNavigate } from "react-router-dom"
 
 export default function AddBirdPage({ apiBaseUrl }) {
 
@@ -14,23 +14,22 @@ export default function AddBirdPage({ apiBaseUrl }) {
 
     useEffect(() => {
         const fetchUserDetails = async () => {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('token')
             if (token) {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
                 try {
-                    const response = await axios.get(apiBaseUrl + '/user');
-                    setUser(response.data);
+                    const response = await axios.get(apiBaseUrl + '/user')
+                    setUser(response.data)
                 } catch (error) {
-                    console.error('Error fetching user details', error);
+                    console.error('Error fetching user details', error)
                 }
             }
         };
-        fetchUserDetails();
-
+        fetchUserDetails()
     }, []);
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault()
         const requestBody = {
             name: birdName,
             image: image,
@@ -77,33 +76,28 @@ export default function AddBirdPage({ apiBaseUrl }) {
     }
 
     const handleMapClick = (e) => {
-        const { lat, lng } = e.latlng;
-        alert(`Clicked at: ${lat}, ${lng}. Close this alert to set the co-ordinates in the form below`);
+        const { lat, lng } = e.latlng
+        alert(`Clicked at: ${lat}, ${lng}. Close this alert to set the co-ordinates in the form below`)
         setCoords({
             lat: lat,
             lng: lng
         }
-        );
-    };
+        )
+    }
 
     const MapEventsHandler = ({ handleMapClick }) => {
         useMapEvents({
             click: (e) => handleMapClick(e),
-        });
-        return null;
-    };
+        })
+        return null
+    }
 
     return (
         <>
             <h1 className="mt-4 p-2 bg-sky-700 text-white">Add a bird by completing the form below</h1>
-            {/* <p className="p-1 text-rose-600"><span>*If you haven't registered your username yet, please </span><Link to="/register" className="text-sky-700">register here</Link><span> before trying to add a bird*</span></p> */}
             <form className="my-3 flex flex-col gap-4 px-3" onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-1">
                     <h2>Username: {user.name}</h2>
-                    {/* <select className="w-fit px-2 py-1" name="userId" value={userId} onChange={(event) => setUserId(event.target.value)}>
-                        <option value="0" disabled>Select</option>
-                        {users?.map(user => <option value={user.id} key={user.id}>{user.name}</option>)}
-                    </select> */}
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="name">Name of bird seen (required)</label>
@@ -112,6 +106,7 @@ export default function AddBirdPage({ apiBaseUrl }) {
                 <div className="flex flex-col gap-1">
                     <label htmlFor="imageURL">Link to an image (if you have one)</label>
                     <input className="p-1 border border-sky-700 rounded" type="text" id="imageURL" name="imageURL" placeholder="imageURL" value={image} onChange={(event) => setImage(event.target.value)} />
+                    <p><a href={"https://unsplash.com/s/photos/" + birdName} target="_blank" className="text-sky-700 font-bold">Click here</a> to search for an image of your bird on Unsplash.com</p>
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="location">Name of location of sighting (required)</label>

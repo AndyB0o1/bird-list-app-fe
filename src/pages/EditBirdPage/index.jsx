@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from "react-leaflet";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from "react-leaflet"
+import { useNavigate, useParams } from "react-router-dom"
 
 export default function EditBirdPage({ apiBaseUrl }) {
 
@@ -21,7 +21,7 @@ export default function EditBirdPage({ apiBaseUrl }) {
                 setBirdLat(responseBody.data.lat)
                 setBirdLon(responseBody.data.lon)
             })
-    }, []);
+    }, [])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -44,25 +44,25 @@ export default function EditBirdPage({ apiBaseUrl }) {
             body: JSON.stringify(requestBody)
         }).then(response => {
             navigate("/bird_edited")
-        });
+        })
     }
 
     const handleMapClick = (e) => {
-        const { lat, lng } = e.latlng;
+        const { lat, lng } = e.latlng
         alert(`Clicked at: ${lat}, ${lng}. Close this alert to set the new co-ordinates in the form below`);
         setCoords({
             lat: lat,
             lng: lng
         }
-        );
-    };
+        )
+    }
 
     const MapEventsHandler = ({ handleMapClick }) => {
         useMapEvents({
             click: (e) => handleMapClick(e),
-        });
-        return null;
-    };
+        })
+        return null
+    }
 
     return (
         <>
@@ -101,5 +101,5 @@ export default function EditBirdPage({ apiBaseUrl }) {
                 <input className="bg-sky-700 text-white p-1" type="submit" value="Save changes" />
             </form>
         </>
-    );
+    )
 }
