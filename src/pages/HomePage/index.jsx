@@ -31,8 +31,8 @@ export default function HomePage({ apiBaseUrl }) {
                 <p className="md:mb-2 text-sky-700 text-sm md:text-xl">Click on Login or Register above to get started.</p>
 
             </div>
-            <h2 className="hidden sm:block font-bold md:text-xl text-sky-700">Recent user sightings</h2>
-            <div className="hidden md:flex gap-2 p-2 text-sky-700">
+            <h2 className="font-bold md:text-xl text-sky-700">Recent user sightings</h2>
+            <div className="flex flex-col lg:flex-row gap-2 p-1 text-sky-700">
                 {recents.map(recent => <BirdDetail
                     key={recent.id}
                     name={recent.name}

@@ -94,7 +94,7 @@ export default function MyListPage({ apiBaseUrl }) {
                 <input className="p-1 border border-sky-700 rounded" type="text" onChange={handleSearch} value={searchValue} placeholder="Search birds" />
                 <button className="m-1 p-1 rounded bg-sky-700 text-white" onClick={handleClick}>Clear search</button>
             </div>
-            <div className="flex flex-wrap gap-1 justify-between max-h-72 overflow-auto">
+            <div className="flex flex-col lg:flex-row lg:flex-wrap gap-2 p-1 text-sky-700 max-h-72 overflow-auto">
                 {filteredBirds.map(bird => <BirdInfo
                     id={bird.id}
                     key={bird.id}
