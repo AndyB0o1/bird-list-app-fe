@@ -12,6 +12,7 @@ export default function EditBirdPage({ apiBaseUrl }) {
     const [coords, setCoords] = useState({})
     const [birdLat, setBirdLat] = useState(0)
     const [birdLon, setBirdLon] = useState(0)
+    const [isOpen, setIsOpen] = useState(false)
     const { id } = useParams()
 
     useEffect(() => {
@@ -23,8 +24,8 @@ export default function EditBirdPage({ apiBaseUrl }) {
             })
     }, [])
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault()
         const requestBody = {
             name: name,
             image: image,
@@ -64,42 +65,76 @@ export default function EditBirdPage({ apiBaseUrl }) {
         return null
     }
 
+    const handleClick = e => {
+        e.preventDefault()
+        setIsOpen(true)
+    }
+
+    const handleYes = e => {
+        e.preventDefault()
+        fetch(apiBaseUrl + '/birds/' + id, {
+            mode: 'cors',
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+        }).then(response => {
+            alert('Sighting deleted')
+            navigate("/mylist")
+    })
+}
+
+    const handleNo = e => {
+        e.preventDefault()
+        setIsOpen(false)
+    }
+
     return (
-        <>
-            {/* <div className="flex justify-between"> */}
-            <h1 className="mt-4 p-2 bg-sky-700 rounded text-white">Edit your bird using the form below</h1>
-            {/* <button className="p-2 bg-red-700 rounded text-white">Delete sighting<br></br>Cannot be undone</button>
-            </div> */}
-            <form className="my-3 flex flex-col gap-4 px-3" onSubmit={handleSubmit}>
-                <div className="flex flex-col gap-1">
-                    <label htmlFor="name">Name of bird seen</label>
-                    <input className="p-1 border border-sky-700 rounded" type="text" id="name" name="name" placeholder={bird.name} value={name} onChange={(event) => setName(event.target.value)} />
+        <div className="relative">
+            {isOpen &&
+                <div className="absolute inset-x-6 md:inset-x-32 top-10 h-16 w-72 bg-gray-200 rounded-t">
+                    <p className="p-1 font-bold text-sky-700 text-center">Are you sure?</p> 
+                    <p className="p-1 font-bold text-sky-700 text-center">This cannot be undone</p>
+                    <div className="flex justify-around bg-gray-200 rounded-b">
+                        <button className="px-2 my-2 bg-sky-700 text-white text-sm rounded" type="submit" onClick={handleYes}>Yes</button>
+                        <button className="px-2 my-2 bg-sky-700 text-white text-sm rounded" type="submit" onClick={handleNo}>No, cancel</button>
+                    </div>
+                </div>}
+                <div className="flex justify-between">
+                    <h1 className="mt-4 p-2 bg-sky-700 rounded text-white">Edit your bird using the form below</h1>
+                    <button className="p-1 my-2 bg-red-500 text-white rounded" type="submit" onClick={handleClick}>Delete sighting</button>
                 </div>
-                <div className="flex flex-col gap-1">
-                    <label htmlFor="imageURL">Link to an image</label>
-                    <input className="p-1 border border-sky-700 rounded" type="text" id="imageURL" name="imageURL" placeholder={bird.image} value={image} onChange={(event) => setImage(event.target.value)} />
-                </div>
-                <div className="flex flex-col gap-1">
-                    <label htmlFor="location">Name of location of sighting</label>
-                    <input className="p-1 border border-sky-700 rounded" type="text" id="location" name="location" placeholder={bird.location} value={location} onChange={(event) => setLocation(event.target.value)} />
-                </div>
-                <div>
-                    <h2>Click on the map below to change the location co-ordinates for your sighting</h2>
-                    {birdLat &&
-                        <MapContainer center={[birdLat, birdLon]} zoom={8} style={{ height: '500px' }}>
-                            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                            <Marker position={[birdLat, birdLon]} >
-                                <Popup>
-                                    {bird.name} <br></br>
-                                    seen at {bird.location}
-                                </Popup>
-                            </Marker>
-                            <MapEventsHandler handleMapClick={handleMapClick} />
-                        </MapContainer>
-                    }
-                </div>
-                <input className="bg-sky-700 text-white p-1" type="submit" value="Save changes" />
-            </form>
-        </>
+                <form className="my-3 flex flex-col gap-4 px-3" onSubmit={handleSubmit}>
+                    <div className="flex flex-col gap-1">
+                        <label htmlFor="name">Name of bird seen</label>
+                        <input className="p-1 border border-sky-700 rounded" type="text" id="name" name="name" placeholder={bird.name} value={name} onChange={(event) => setName(event.target.value)} />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <label htmlFor="imageURL">Link to an image</label>
+                        <input className="p-1 border border-sky-700 rounded" type="text" id="imageURL" name="imageURL" placeholder={bird.image} value={image} onChange={(event) => setImage(event.target.value)} />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <label htmlFor="location">Name of location of sighting</label>
+                        <input className="p-1 border border-sky-700 rounded" type="text" id="location" name="location" placeholder={bird.location} value={location} onChange={(event) => setLocation(event.target.value)} />
+                    </div>
+                    <div>
+                        <h2>Click on the map below to change the location co-ordinates for your sighting</h2>
+                        {birdLat &&
+                            <MapContainer center={[birdLat, birdLon]} zoom={8} style={{ height: '500px' }}>
+                                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                                <Marker position={[birdLat, birdLon]} >
+                                    <Popup>
+                                        {bird.name} <br></br>
+                                        seen at {bird.location}
+                                    </Popup>
+                                </Marker>
+                                <MapEventsHandler handleMapClick={handleMapClick} />
+                            </MapContainer>
+                        }
+                    </div>
+                    <input className="bg-sky-700 text-white p-1" type="submit" value="Save changes" />
+                </form>
+            </div>
     )
 }
