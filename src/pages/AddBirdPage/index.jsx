@@ -94,32 +94,32 @@ export default function AddBirdPage({ apiBaseUrl }) {
 
     return (
         <>
-            <h1 className="mt-4 p-2 bg-sky-700 text-white">Add a bird by completing the form below</h1>
+            <h1 className="mt-4 p-2 bg-emerald-600 text-white rounded">Add a bird by completing the form below</h1>
             <form className="my-3 flex flex-col gap-4 px-3" onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-1">
-                    <h2>Username: {user.name}</h2>
+                    <h2 className="text-sky-700">Username: {user.name}</h2>
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="name">Name of bird seen (required)</label>
+                    <label className="text-sky-700" htmlFor="name">Name of bird seen (required)</label>
                     <input className="p-1 border border-sky-700 rounded" type="text" id="birdName" name="birdName" placeholder="Species of bird seen" value={birdName} onChange={(event) => setBirdName(event.target.value)} />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="imageURL">Link to an image (if you have one)</label>
+                    <label className="text-sky-700" htmlFor="imageURL">Link to an image (if you have one)</label>
                     <input className="p-1 border border-sky-700 rounded" type="text" id="imageURL" name="imageURL" placeholder="imageURL" value={image} onChange={(event) => setImage(event.target.value)} />
                     <p><a href={"https://unsplash.com/s/photos/" + birdName} target="_blank" className="text-sky-700 font-bold">Click here</a> to search for an image of your bird on Unsplash.com</p>
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="location">Name of location of sighting (required)</label>
+                    <label className="text-sky-700" htmlFor="location">Name of location of sighting (required)</label>
                     <input className="p-1 border border-sky-700 rounded" type="text" id="location" name="location" placeholder="location" value={location} onChange={(event) => setLocation(event.target.value)} />
                 </div>
                 <div>
-                    <h2>Click on the map below to add the location co-ordinates for your sighting (this will add a marker to the main map in your list)</h2>
+                    <h2 className="text-sky-700">Click on the map below to add the location co-ordinates for your sighting (this will add a marker to the main map in your list)</h2>
                     <MapContainer center={[51.34751, -2.290]} zoom={4} style={{ height: '500px' }}>
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                         <MapEventsHandler handleMapClick={handleMapClick} />
                     </MapContainer>
                 </div>
-                <input className="bg-sky-700 text-white p-1" type="submit" value="Add bird" />
+                <input className="bg-emerald-600 text-white p-1" type="submit" value="Add bird" />
             </form>
         </>
     )

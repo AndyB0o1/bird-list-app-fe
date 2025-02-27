@@ -17,7 +17,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="md:w-1/2 mx-8 md:mx-auto">
+      <div className="md:w-3/5 mx-8 md:mx-auto">
         <Nav />
         <Routes>
           <Route path="/" element={<HomePage apiBaseUrl={apiBaseUrl} />} />

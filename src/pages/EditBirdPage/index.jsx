@@ -102,10 +102,10 @@ export default function EditBirdPage({ apiBaseUrl }) {
                     </div>
                 </div>}
                 <div className="flex justify-between">
-                    <h1 className="sm:mt-4 p-1 sm:p-2 bg-sky-700 rounded text-xs sm:text-base text-white">Edit your bird using the form below</h1>
-                    <button className="sm:mt-4 p-1 sm:p-2 bg-red-500 text-xs sm:text-base text-white rounded" type="submit" onClick={handleClick}>Delete sighting</button>
+                    <h1 className="lg:mt-4 p-1 lg:p-2 bg-emerald-600 rounded text-xs lg:text-base text-white">Edit your bird using the form below</h1>
+                    <button className="lg:mt-4 p-1 lg:p-2 bg-red-500 text-xs lg:text-base text-white rounded" type="submit" onClick={handleClick}>Delete sighting</button>
                 </div>
-                <form className="my-3 flex flex-col gap-4 px-3" onSubmit={handleSubmit}>
+                <form className="my-3 flex flex-col gap-4 px-3 text-sm lg:text-base" onSubmit={handleSubmit}>
                     <div className="flex flex-col gap-1">
                         <label htmlFor="name">Name of bird seen</label>
                         <input className="p-1 border border-sky-700 rounded" type="text" id="name" name="name" placeholder={bird.name} value={name} onChange={(event) => setName(event.target.value)} />
@@ -133,7 +133,7 @@ export default function EditBirdPage({ apiBaseUrl }) {
                             </MapContainer>
                         }
                     </div>
-                    <input className="bg-sky-700 text-white p-1 rounded" type="submit" value="Save changes" />
+                    <input className="bg-emerald-600 text-white p-1 rounded" type="submit" value="Save changes" />
                 </form>
             </div>
     )

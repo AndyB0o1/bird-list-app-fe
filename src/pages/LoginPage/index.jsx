@@ -22,7 +22,7 @@ export default function LoginPage() {
 
     return (
         <>
-            <h1 className="mt-4 p-2 bg-sky-700 text-white">Login below to see your list</h1>
+            <h1 className="mt-4 p-2 bg-emerald-600 text-white">Login below to see your list</h1>
             <form onSubmit={handleLogin}>
                 <div className="my-1 flex gap-2 text-sky-700">
                     <label htmlFor="email">Email address:</label>
@@ -32,7 +32,7 @@ export default function LoginPage() {
                     <label htmlFor="password">Password:</label>
                     <input className="px-1 border rounded" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
                 </div>
-                <button className="p-1 my-2 bg-sky-700 text-white rounded" type="submit">Login</button>
+                <button className="p-1 my-2 bg-emerald-600 text-white rounded" type="submit">Login</button>
             </form>
         </>
     )

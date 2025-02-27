@@ -24,7 +24,7 @@ export default function RegisterPage() {
 
     return (
         <>
-            <h1 className="mt-4 p-2 bg-sky-700 text-white text-sm md:text-base rounded">Register to start your list by completing the form below</h1>
+            <h1 className="mt-4 p-2 bg-emerald-600 text-white text-sm md:text-base rounded">Register to start your list by completing the form below</h1>
             <form className="my-1 md:my-3 flex flex-col gap-4 px-3 text-sky-700 text-sm md:text-base" onSubmit={handleRegister}>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="username">Create username (required, max 10 characters)</label>
@@ -42,7 +42,7 @@ export default function RegisterPage() {
                     <label htmlFor="password">Confirm your password</label>
                     <input className="px-1 border rounded" type="password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} placeholder="Confirm Password" required />
                 </div>
-                <input className="p-1 bg-sky-700 text-white rounded" type="submit" value="Register" />
+                <input className="p-1 bg-emerald-600 text-white rounded" type="submit" value="Register" />
             </form>
         </>
     )

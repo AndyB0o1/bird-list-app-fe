@@ -12,7 +12,7 @@ export default function BirdInfo({ id, name, image, location }) {
                     </div>
                 </div>
             </Link>
-            <div className="hidden lg:block mx-1 basis-[45%] sm:basis-[22%]">
+            <div className="hidden lg:block mx-1 basis-[20%]">
                 <Link to={/birds/ + id} >
                     <div className="border border-sky-700 rounded-lg">
                         <h3 className="p-2 h-12 text-sky-700 text-center text-xs font-bold">{name}</h3>
