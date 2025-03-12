@@ -104,7 +104,7 @@ export default function AddBirdPage({ apiBaseUrl }) {
                     <input className="p-1 border border-sky-700 rounded" type="text" id="birdName" name="birdName" placeholder="Species of bird seen" value={birdName} onChange={(event) => setBirdName(event.target.value)} />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label className="text-sky-700" htmlFor="imageURL">Link to an image (if you have one)</label>
+                    <label className="text-sky-700" htmlFor="imageURL">Link to an image (if you don't have one, a default placeholder image will be used)</label>
                     <input className="p-1 border border-sky-700 rounded" type="text" id="imageURL" name="imageURL" placeholder="imageURL" value={image} onChange={(event) => setImage(event.target.value)} />
                     <p><a href={"https://unsplash.com/s/photos/" + birdName} target="_blank" className="text-sky-700 font-bold">Click here</a> to search for an image of your bird on Unsplash.com</p>
                 </div>
