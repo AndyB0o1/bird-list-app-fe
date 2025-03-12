@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { HashRouter, Route, Routes } from "react-router-dom"
 import Footer from "./components/Footer"
 import Nav from "./components/Nav"
 import AddBirdPage from "./pages/AddBirdPage"
@@ -12,10 +12,10 @@ import LoginPage from "./pages/LoginPage"
 
 function App() {
 
-  const apiBaseUrl = 'http://localhost:8000/api'
+  const apiBaseUrl = 'https://mybirdlist-be.2024-andyb.dev.io-academy.uk/api'
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="md:w-3/5 xl:w-[50%] mx-8 md:mx-auto">
         <Nav />
         <Routes>
@@ -30,7 +30,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import AuthService from '../../services/auth/AuthService.jsx'
 import { useNavigate } from 'react-router-dom'
 

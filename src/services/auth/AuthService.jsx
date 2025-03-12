@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8000/api'
+const apiBaseUrl = 'https://mybirdlist-be.2024-andyb.dev.io-academy.uk/api'
 
 const register = (name, email, password, password_confirmation) => {
-    return axios.post(`${API_URL}/register`, {
+    return axios.post(`${apiBaseUrl}/register`, {
         name,
         email,
         password,
@@ -12,7 +12,7 @@ const register = (name, email, password, password_confirmation) => {
 }
 
 const login = (email, password) => {
-    return axios.post(`${API_URL}/login`, {
+    return axios.post(`${apiBaseUrl}/login`, {
         email,
         password,
     }).then((response) => {
