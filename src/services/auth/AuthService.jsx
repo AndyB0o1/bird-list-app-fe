@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiBaseUrl = 'https://mybirdlist-be.2024-andyb.dev.io-academy.uk/api'
+const apiBaseUrl = 'http://localhost:8000/api'
 
 const register = (name, email, password, password_confirmation) => {
     return axios.post(`${apiBaseUrl}/register`, {
